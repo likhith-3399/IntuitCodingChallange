@@ -35,8 +35,8 @@
             <td>
                 <center>Popular, <br/>Horror</center>
             </td>
-            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50 " hspace="20">
-                <img src="down.jpg" alt="Thumbs Down" width="50" height="50">
+            <td><a href="javascript:thumbsUp('Stranger Things');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50 " hspace="20"></a>
+                <a href="javascript:thumbsUp('Stranger Things');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
             </td>
         </tr>
 
@@ -50,10 +50,9 @@
             <td>
                 <center>Action</center>
             </td>
-            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
-                                                                                                       alt="Thumbs Down"
-                                                                                                       width="50"
-                                                                                                       height="50"></td>
+            <td><a href="javascript:thumbsUp('Doctor Strange');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
+                <a href="javascript:thumbsUp('Doctor Strange');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
+            </td>
         </tr>
 
         <tr>
@@ -63,10 +62,9 @@
                 <center>This landmark series transports nature lovers all over the earth.</center>
             </td>
             <td>Documentary</td>
-            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
-                                                                                                       alt="Thumbs Down"
-                                                                                                       width="50"
-                                                                                                       height="50"></td>
+            <td><a href="javascript:thumbsUp('Planet Earth');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
+                <a href="javascript:thumbsUp('Planet Earth');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
+            </td>
         </tr>
 
         <tr height=60px></tr>
@@ -77,7 +75,7 @@
         </tr>
 
         <tr>
-            <td><img src="flash.jpg" alt="Planet Earth" width="100" height="120"></td>
+            <td><img src="flash.jpg" alt="Flash" width="100" height="120"></td>
             <td>
                 <center>Flash</center>
             </td>
@@ -88,13 +86,12 @@
             <td>
                 <center>Popular, <br/>Action</center>
             </td>
-            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
-                                                                                                       alt="Thumbs Down"
-                                                                                                       width="50"
-                                                                                                       height="50"></td>
+            <td><a href="javascript:thumbsUp('flash');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
+                <a href="javascript:thumbsDown('flash');"><img src="down.jpg"  alt="Thumbs Down" width="50" height="50"></a>
+            </td>
         </tr>
         <tr>
-            <td><img src="friends.jpg" alt="Planet Earth" width="100" height="120"></td>
+            <td><img src="friends.jpg" alt="Friends" width="100" height="120"></td>
             <td>
                 <center>Friends</center>
             </td>
@@ -105,33 +102,48 @@
             <td>
                 <center>Comedy,<br/> Favourite</center>
             </td>
-            <td>
-                <button type="button" onclick="loadDoc()"><img src="up.jpg" align="left" alt="Thumbs Up" width="50"
-                                                               height="50" hspace="20"></button>
-                <img src="down.jpg" alt="Thumbs Down" width="50" height="50">
+            <td><a href="javascript:thumbsUp('Friends');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
+                <a href="javascript:thumbsDown('Friends');"><img src="down.jpg"  alt="Thumbs Down" width="50" height="50"></a>
             </td>
         </tr>
     </table>
 </center>
 
-<div id="demo">
-    <h1>The XMLHttpRequest Object</h1>
-    <button type="button" onclick="loadDoc()">Change Content</button>
-</div>
 
+
+<label><b>Total no. of Likes</b></label>
+<input type="text" name="TextBox" id="TextBox2" value="0" />
+<input type="Button" id='AddButton2' value="+"/>
+<br/>
+<label><b>Total no. of DisLikes</b></label>
+<input type="text" name="TextBox" id="TextBox1" value="0" />
+<input type="Button" id='AddButton1' value="+"/>
+
+<script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
 <script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML =
-      this.responseText;
-    }
-  };
-  xhttp.open("GET", "ajax_info.txt", true);
-  xhttp.send();
-}
 
+    function thumbsUp(category) {
+       console.log('Thumbs up..' , category);
+    }
+    function thumbsDown(category) {
+       console.log('Thumbs down..', category);
+    }
+    $(document).ready(function(){
+        $('#AddButton').click( function() {
+            var counter = $('#TextBox').val();
+            counter++ ;
+            $('#TextBox').val(counter);
+        });
+    });
+
+    $(document).ready(function(){
+        $('#AddButton1').click( function() {
+            var counter1 = $('#TextBox').val();
+            counter1++ ;
+            $('#TextBox').val(counter);
+        });
+    });
 </script>
+
 </body>
 </html>
