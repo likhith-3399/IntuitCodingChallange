@@ -1,61 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Intuit Coding Challenge</title>
 </head>
 
-
-<CENTER>
-    <IMG SRC="//www.sheldonbrown.com/images/scb_eagle_contact.jpeg">
-</CENTER>
-
-
-
 <body>
-<table>
-    <tr>
-        <th>Movie</th>
-        <th>Description</th>
-        <th>Category</th>
-    </tr>
+<center>
+    <font size="10"> VOTING ARENA</font>
+    <table border="1">
 
-    <tr>
-        <td> Stranger Things</td>
-        <td>When a young boy disappears, his mother, a police chief, and his friends must confront terrifying forces in order to get him back</td>
-        <td>Popular, Horror</td>
-    </tr>
+        <tr>
+            <h1>
+                <th colspan="5"><font size="5"> MOVIES</font></th>
+            </h1>
+        </tr>
+        <tr>
+            <h2>
+                <th></th>
+                <th>Movie</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Like/ Dislike</th>
+            </h2>
+        </tr>
+        <tr>
+            <td><img src="strangerthings.jpg" alt="Stranger Things" width="100" height="120"></td>
+            <td> Stranger Things</td>
+            <td>
+                <center>When a young boy disappears, his mother, a police chief, and his friends must <br/> confront
+                    terrifying forces in order to get him back</center>
+            </td>
+            <td>
+                <center>Popular, <br/>Horror</center>
+            </td>
+            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50 " hspace="20">
+                <img src="down.jpg" alt="Thumbs Down" width="50" height="50">
+            </td>
+        </tr>
 
-    <tr>
-        <td> Doctor Strange</td>
-        <td>After a neurosurgeon loses the use of this hangs he meets a mystical mentor who helps him harness magic to become the most powerful sorcerer on Earth.</td>
-        <td>Action</td>
-    </tr>
+        <tr>
+            <td><img src="drstrange.jpg" alt="Doctor Strange" width="100" height="120"></td>
+            <td> Doctor Strange</td>
+            <td>
+                <center>After a neurosurgeon loses the use of this hangs he meets a mystical mentor <br/>who helps him
+                    harness magic to become the most powerful sorcerer on Earth.</center>
+            </td>
+            <td>
+                <center>Action</center>
+            </td>
+            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
+                                                                                                       alt="Thumbs Down"
+                                                                                                       width="50"
+                                                                                                       height="50"></td>
+        </tr>
 
-    <tr>
-        <td>Planet Earth</td>
-        <td>This landmark series transports nature lovers all over the earth.</td>
-        <td>Documentary</td>
-    </tr>
-</table>
+        <tr>
+            <td><img src="planetearth.jpg" alt="Planet Earth" width="100" height="120"></td>
+            <td>Planet Earth</td>
+            <td>
+                <center>This landmark series transports nature lovers all over the earth.</center>
+            </td>
+            <td>Documentary</td>
+            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
+                                                                                                       alt="Thumbs Down"
+                                                                                                       width="50"
+                                                                                                       height="50"></td>
+        </tr>
 
-<table>
-    <tr>
-        <th>TV</th>
-        <th>Description</th>
-        <th>Category</th>
-    </tr>
-    <tr>
-        <td>Flash</td>
-        <td>Zoom challenges Barry to a race, but the team suspects a trap and tries to talk Barry out of it.</td>
-        <td>Popular, Action</td>
-    </tr>
-    <tr>
-        <td>Friends</td>
-        <td>This his sitcom follows the merry misadventures of six 20-somethings pals as they naviagte the pitfalls of work, life and love.</td>
-        <td>Comedy, Favourite</td>
-    </tr>
-</table>
+        <tr height=60px></tr>
+        <tr>
+            <h1>
+                <th colspan="5"><font size="5"> TV-SERIES</font></th>
+            </h1>
+        </tr>
 
+        <tr>
+            <td><img src="flash.jpg" alt="Planet Earth" width="100" height="120"></td>
+            <td>
+                <center>Flash</center>
+            </td>
+            <td>
+                <center>Zoom challenges Barry to a race, but the team suspects a trap and <br/> tries to talk Barry out
+                    of it.</center>
+            </td>
+            <td>
+                <center>Popular, <br/>Action</center>
+            </td>
+            <td><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"><img src="down.jpg"
+                                                                                                       alt="Thumbs Down"
+                                                                                                       width="50"
+                                                                                                       height="50"></td>
+        </tr>
+        <tr>
+            <td><img src="friends.jpg" alt="Planet Earth" width="100" height="120"></td>
+            <td>
+                <center>Friends</center>
+            </td>
+            <td>
+                <center>This his sitcom follows the merry misadventures of six 20-somethings pals <br/> as they navigate
+                    the pitfalls of work, life and love.</center>
+            </td>
+            <td>
+                <center>Comedy,<br/> Favourite</center>
+            </td>
+            <td>
+                <button type="button" onclick="loadDoc()"><img src="up.jpg" align="left" alt="Thumbs Up" width="50"
+                                                               height="50" hspace="20"></button>
+                <img src="down.jpg" alt="Thumbs Down" width="50" height="50">
+            </td>
+        </tr>
+    </table>
+</center>
+
+<div id="demo">
+    <h1>The XMLHttpRequest Object</h1>
+    <button type="button" onclick="loadDoc()">Change Content</button>
+</div>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt", true);
+  xhttp.send();
+}
+
+</script>
 </body>
 </html>
