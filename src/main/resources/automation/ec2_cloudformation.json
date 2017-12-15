@@ -1,0 +1,143 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Creates single Instance of IDEAL for testing purposes",
+
+  "Parameters": {
+    "ImageId": {
+      "Description": "Provides the unique ID of the Amazon Machine Image (AMI)",
+      "Type": "AWS::EC2::Image::Id",
+      "Default": "ami-301f824a"
+    },
+    "InstanceType": {
+      "Description": "The type of the ec2 instance you are creating",
+      "Type": "String",
+      "Default": "c4.xlarge"
+    },
+    "SubnetId": {
+      "Description": "ID of the subnet you want to launch the instance into",
+      "Type": "AWS::EC2::Subnet::Id",
+      "Default": "subnet-d5b8c0b1"
+    },
+    "Timezone": {
+      "Description": "Timezone",
+      "Type": "String",
+      "Default": "Chicago",
+      "AllowedValues": ["New_York", "Chicago", "Denver", "Los_Angeles"]
+    },
+    "ApplicationName": {
+      "Description": "Name of application the instance is a part of",
+      "Type": "String",
+      "Default": "Voting Arena"
+    },
+    "OwnerContact": {
+      "Type": "String",
+      "Default": "likhith.matta@capitalone.com"
+    },
+    "Uptime": {
+      "Description": "Uptime of the instance",
+      "Type": "String",
+      "Default": "8x5"
+    },
+    "Environment": {
+      "Description": "Environment to which this instance belongs.",
+      "Type": "String",
+      "Default": "Dev"
+    },
+    "HostedZoneId": {
+      "Description": "Hosted Zone Id to which this instance belongs.",
+      "Type": "String",
+      "Default": "Z35SXDOTRQ7X7K"
+    },
+    "Index": {
+      "Description": "Type of the stack Blue/green",
+      "Type": "String",
+      "Default": "Blue"
+    },
+    "Weight": {
+      "Description": "Weight to be assigned to the stack",
+      "Type": "String",
+      "Default": "0"
+    },
+    "TargetDNSName": {
+      "Description": "Common Name to be used per Environment",
+      "Type": "String"
+    },
+    "HostedZoneName": {
+      "Description": "DNS to be used for hosting(could be different for internal and external applications)",
+      "Type": "String",
+      "Default": "aws-coaf-dqa.cb4good.com."
+    }
+  },
+
+  "Resources" : {
+    "TestNode": {
+      "Type": "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId": { "Ref": "ImageId" },
+        "InstanceType": { "Ref": "InstanceType" },
+        "SecurityGroupIds": { "Ref": "SecurityGroupIds" },
+        "SubnetId": { "Ref": "SubnetId" },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Voting Arena Test Instance"
+          },
+          {
+            "Key": "ApplicationName",
+            "Value": { "Ref": "ApplicationName"}
+          },
+          {
+            "Key": "OwnerContact",
+            "Value": { "Ref": "OwnerContact" }
+          },
+          {
+            "Key": "Uptime",
+            "Value": { "Ref": "Uptime" }
+          },
+          {
+            "Key": "Environment",
+            "Value": { "Ref": "Environment" }
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -v \n",
+                "cd /tmp/ \n"
+              ]
+            ]
+          }
+        }
+      }
+    }
+    /*"idealDNS" : {
+      "Type" : "AWS::Route53::RecordSetGroup",
+      "DependsOn": "TestNode",
+      "Properties" : {
+        "HostedZoneName" : { "Ref": "HostedZoneName" },
+        "Comment" : "Zone apex alias targeted to Ideal ELB LoadBalancers.",
+        "RecordSets" : [
+          {
+            "Name" : { "Fn::Join": [ ".", [
+              { "Ref": "TargetDNSName" },
+              { "Ref": "HostedZoneName" }
+            ] ] },
+            "Type" : "A",
+            "TTL" : "300",
+            "SetIdentifier" : { "Fn::Join": [ "-", [
+              { "Ref": "TargetDNSName" },
+              { "Ref": "Index" }
+            ] ] },
+            "Weight": { "Ref": "Weight" },
+            "ResourceRecords" : [
+              { "Fn::GetAtt" : [ "TestNode", "PrivateIp" ] }
+            ]
+          }
+        ]
+      }
+    }*/
+  }
+
+}

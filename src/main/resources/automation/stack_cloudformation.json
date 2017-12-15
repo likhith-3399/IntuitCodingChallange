@@ -1,0 +1,218 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Voting Service Stack",
+  "Parameters": {
+    "VpcEnv": {
+      "Description": "The instance environment",
+      "Type": "String",
+      "Default": "Dev"
+    },
+    "ImageId": {
+      "Description": "Provides the unique ID of the Amazon Machine Image (AMI)",
+      "Type": "String",
+      "Default": "ami-301f824a"
+    },
+    "SlaveInstanceType": {
+      "Description": "The type of the ec2 instance to create for workloads",
+      "Type": "String",
+      "Default": "c4.xlarge"
+    },
+    "Timezone": {
+      "Description": "Timezone",
+      "Type": "String",
+      "Default": "Chicago",
+      "AllowedValues": [
+        "New_York",
+        "Chicago",
+        "Denver",
+        "Los_Angeles"
+      ]
+    },
+    "ApplicationName": {
+      "Description": "Name of application the instance is a part of",
+      "Type": "String",
+      "Default": "Voting Arena"
+    },
+    "OwnerContact": {
+      "Type": "String"
+    },
+    "SlaveMinSize": {
+      "Description": "Minimum number of slaves to having running at any given time",
+      "Type": "String",
+      "Default": "1"
+    },
+    "SlaveMaxSize": {
+      "Description": "Maximum number of slaves to having running at any given time",
+      "Type": "String",
+      "Default": "1"
+    },
+    "SlaveSubnets": {
+      "Description": "Subnets to launch slave nodes into",
+      "Type": "String",
+      "Default": "subnet-fa35038d"
+    },
+    "AppELBSecurityGroup": {
+      "Description": "ID of SecurityGroup",
+      "Type": "String",
+      "Default": "sg-0932896e,sg-77696b0f"
+    },
+    "AppELBSubnets": {
+      "Description": "Subnets that will be used for the load balancer and instances. These should be in separate Availability Zones",
+      "Type": "String",
+      "Default": "subnet-fa35038d"
+    },
+    "elbHttpPort": {
+      "Description": "The receiving port that the load balancer will be listening on.",
+      "Type": "String",
+      "Default": "8080",
+      "ConstraintDescription": "Must be a valid port."
+    },
+    "elbHttpInstancePort": {
+      "Description": "The destination port that the load balancer will send the traffic on.",
+      "Type": "String",
+      "Default": "8080"
+    },
+    "elbHttpListnerProtocol": {
+      "Description": "ELB Listener protocol for the IDEAL stack.",
+      "Type": "String",
+      "AllowedValues": [ "TCP", "HTTP", "HTTPS", "SSL" ],
+      "Default": "TCP"
+    },
+    "AppELBHealthyThreshold": {
+      "Description": "Number of consecutive health check successes before declaring an EC2 instance healthy.",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "10",
+      "Default": "4"
+    },
+    "AppELBUnhealthyThreshold": {
+      "Description": "Number of consecutive health check failures before declaring an EC2 instance unhealthy.",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "10",
+      "Default": "6"
+    },
+    "AppELBIntervalThreshold": {
+      "Description": "Amount of time between health checks (5 sec - 600 sec).  For development we're using 5.",
+      "Type": "Number",
+      "MinValue": "5",
+      "MaxValue": "600",
+      "Default": "10"
+    },
+    "AppELBTimeoutThreshold": {
+      "Description": "Time to wait when receiving a response from the health check (2 sec - 60 sec).",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "60",
+      "Default": "5"
+    },
+    "AppHealthCheckProtocol": {
+      "Description": "Health check protocol.",
+      "Type": "String",
+      "AllowedValues": [ "TCP", "HTTP", "HTTPS", "SSL" ],
+      "Default": "TCP"
+    },
+    "AppHealthCheckPort": {
+      "Description": "The port that the ELB will use to determine the health of its instances.",
+      "Type": "String",
+      "Default": "22"
+    },
+    "AppHealthCheckPath": {
+      "Description": "The path the ELB will use to determine the health of its instances.",
+      "Type": "String",
+      "Default": ""
+    },
+    "Subnets": {
+      "Description": "List of subnets to deploy instances into",
+      "Type": "String"
+    },
+    "UUID": {
+      "Description": "Unique universal identifier used to identify all nodes in this stack",
+      "Type": "String",
+      "Default": ""
+    },
+    "Uptime": {
+      "Description": "Uptime of the ec2 instance",
+      "Type": "String",
+      "Default": "24x5"
+    },
+    "Environment": {
+      "Description": "Environment to which this instance belongs.",
+      "Type": "String",
+      "Default": "Dev"
+    },
+    "Index": {
+      "Description": "Type of the stack Blue/green",
+      "Type": "String",
+      "Default": "Blue"
+    },
+    "Weight": {
+      "Description": "Weight to be assigned to the stack",
+      "Type": "String",
+      "Default": "0"
+    },
+    "TargetDNSName": {
+      "Description": "Common Name to be used for Route53 DNS entry",
+      "Type": "String"
+    },
+    "HostedZoneName": {
+      "Description": "Hosted Zone where the Route 53 entry should be made",
+      "Type": "String"
+    }
+  },
+
+  "Resources": {
+    "IdealELBStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "elb.json",
+        "Parameters": {
+          "AppELBSubnets": { "Ref": "AppELBSubnets" },
+          "elbHttpPort": { "Ref": "elbHttpPort" },
+          "elbHttpInstancePort": { "Ref": "elbHttpInstancePort" },
+          "elbHttpListnerProtocol": { "Ref": "elbHttpListnerProtocol" },
+          "AppELBHealthyThreshold": { "Ref": "AppELBHealthyThreshold" },
+          "AppELBUnhealthyThreshold": { "Ref": "AppELBUnhealthyThreshold" },
+          "AppELBIntervalThreshold": { "Ref": "AppELBIntervalThreshold" },
+          "AppELBTimeoutThreshold": { "Ref": "AppELBTimeoutThreshold" },
+          "AppHealthCheckProtocol": { "Ref": "AppHealthCheckProtocol" },
+          "AppHealthCheckPort": { "Ref": "AppHealthCheckPort" },
+          "AppHealthCheckPath": { "Ref": "AppHealthCheckPath" },
+          "OwnerContact": { "Ref": "OwnerContact" },
+          "Uptime": { "Ref": "Uptime" },
+          "Index": { "Ref": "Index"},
+          "Environment": { "Ref": "Environment" },
+          "Weight": { "Ref": "Weight" },
+          "TargetDNSName": { "Ref": "TargetDNSName" },
+          "HostedZoneName": { "Ref": "HostedZoneName" }
+        }
+      }
+    },
+
+    "SlaveStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "asg.json",
+        "Parameters": {
+          "ImageId": {"Ref": "ImageId"},
+          "SlaveInstanceType": {"Ref": "SlaveInstanceType"},
+          "Timezone": {"Ref": "Timezone"},
+          "OwnerContact": {"Ref": "OwnerContact"},
+          "SlaveMinSize": {"Ref": "SlaveMinSize"},
+          "SlaveMaxSize": {"Ref": "SlaveMaxSize"},
+          "SlaveSubnets": {"Ref": "Subnets"},
+          "LoadBalancerNames": { "Fn::GetAtt": [ "IdealELBStack", "Outputs.AppELBName" ] },
+          "UUID": { "Ref": "UUID" },
+          "Uptime": { "Ref": "Uptime" },
+          "Environment": { "Ref": "Environment" }
+        }
+      }
+    }
+  },
+
+  "Outputs": {
+    "elbURL": {
+      "Value": { "Fn::GetAtt": [ "IdealELBStack", "Outputs.AppELBURL" ] }
+    }
+  }
+}

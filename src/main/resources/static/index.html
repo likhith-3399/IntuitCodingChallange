@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Intuit Coding Challenge</title>
+    <style>
+        body {background-color: white;}
+        h8   {font: 16px Arial, text-align: center;}
+        h7   {font: 18px Arial, text-align: center;}
+        p    {color: red;}
+    </style>
 </head>
 
 <body>
@@ -22,48 +28,54 @@
                 <th>Movie</th>
                 <th>Description</th>
                 <th>Category</th>
-                <th>Like/ Dislike</th>
+                <th height="40px">Like/ Dislike</th>
             </h2>
         </tr>
+
         <tr>
             <td><img src="strangerthings.jpg" alt="Stranger Things" width="100" height="120"></td>
-            <td> Stranger Things</td>
+            <td><h7> Stranger Things</h7></td>
             <td>
-                <center>When a young boy disappears, his mother, a police chief, and his friends must <br/> confront
-                    terrifying forces in order to get him back</center>
+                <h8>When a young boy disappears, his mother, a police chief, and his friends must <br/> confront
+                    terrifying forces in order to get him back</h8>
             </td>
             <td>
-                <center>Popular, <br/>Horror</center>
+                <h7>Popular, Horror</h7>
             </td>
-            <td><a href="javascript:thumbsUp('Stranger Things');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50 " hspace="20"></a>
-                <a href="javascript:thumbsUp('Stranger Things');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
+            <td><a href="javascript:thumbsUp('Stranger_Things','Movie');"><img src="up.jpg" align="left" alt="Thumbs Up" width="40" height="40" align="left"></a>
+                <a href="javascript:thumbsDown('Stranger_Things','Movie');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="right"></a>
+                    <br><br><div id="stcountUpresult"></div><br><div id="stcountresult"></div>
             </td>
         </tr>
 
         <tr>
             <td><img src="drstrange.jpg" alt="Doctor Strange" width="100" height="120"></td>
-            <td> Doctor Strange</td>
+            <td><h7> Doctor Strange</h7></td>
             <td>
-                <center>After a neurosurgeon loses the use of this hangs he meets a mystical mentor <br/>who helps him
-                    harness magic to become the most powerful sorcerer on Earth.</center>
+                <h8>After a neurosurgeon loses the use of this hangs he meets a mystical mentor <br/>who helps him
+                    harness magic to become the most powerful sorcerer on Earth.</h8>
             </td>
             <td>
-                <center>Action</center>
+                <h7>Action</h7>
             </td>
-            <td><a href="javascript:thumbsUp('Doctor Strange');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
-                <a href="javascript:thumbsUp('Doctor Strange');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
+            <td>
+                <a href="javascript:thumbsUp('Doctor_Strange','Movie');"><img src="up.jpg" align="left" alt="Thumbs Up" width="40" height="40" align="left"></a>
+                <a href="javascript:thumbsDown('Doctor_Strange','Movie');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="right"></a>
+                <br><br><div id="drcountUpresult"></div><br><div id="drcountresult"></div>
             </td>
         </tr>
 
         <tr>
             <td><img src="planetearth.jpg" alt="Planet Earth" width="100" height="120"></td>
-            <td>Planet Earth</td>
+            <td><h7>Planet Earth</h7></td>
             <td>
-                <center>This landmark series transports nature lovers all over the earth.</center>
+                <h8>This landmark series transports nature lovers all over the earth.</h8>
             </td>
-            <td>Documentary</td>
-            <td><a href="javascript:thumbsUp('Planet Earth');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
-                <a href="javascript:thumbsUp('Planet Earth');"><img src="down.jpg" alt="Thumbs Down" width="50" height="50"></a>
+            <td><h7>Documentary</h7></td>
+            <td>
+                <a href="javascript:thumbsUp('Planet_Earth','Documentary');"><img src="up.jpg" align="left" alt="Thumbs Up" width="40" height="40" align="left"></a>
+                <a href="javascript:thumbsDown('Planet_Earth','Documentary');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="right"></a>
+                    <br><br><div id="pecountUpresult"></div><br><div id="pecountresult"></div>
             </td>
         </tr>
 
@@ -77,72 +89,167 @@
         <tr>
             <td><img src="flash.jpg" alt="Flash" width="100" height="120"></td>
             <td>
-                <center>Flash</center>
+                <h7>Flash</h7>
             </td>
             <td>
-                <center>Zoom challenges Barry to a race, but the team suspects a trap and <br/> tries to talk Barry out
-                    of it.</center>
+                <h8>Zoom challenges Barry to a race, but the team suspects a trap and <br/> tries to talk Barry out
+                    of it.</h8>
             </td>
             <td>
-                <center>Popular, <br/>Action</center>
+                <h7>Popular, Action</h7>
             </td>
-            <td><a href="javascript:thumbsUp('flash');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
-                <a href="javascript:thumbsDown('flash');"><img src="down.jpg"  alt="Thumbs Down" width="50" height="50"></a>
+            <td><a href="javascript:thumbsUp('Flash','TV-Series');"><img src="up.jpg" align="left" alt="Thumbs Up" width="40" height="40" align="left"></a>
+                <a href="javascript:thumbsDown('Flash','TV-Series');"><img src="down.jpg"  alt="Thumbs Down" width="40" height="40" align="right"></a>
+                <br><br><div id="fcountUpresult"></div><br><div id="fcountresult"></div>
             </td>
         </tr>
         <tr>
             <td><img src="friends.jpg" alt="Friends" width="100" height="120"></td>
             <td>
-                <center>Friends</center>
+                <h7>Friends</h7>
             </td>
             <td>
-                <center>This his sitcom follows the merry misadventures of six 20-somethings pals <br/> as they navigate
-                    the pitfalls of work, life and love.</center>
+                <h8>This his sitcom follows the merry misadventures of six 20-somethings pals <br/> as they navigate
+                    the pitfalls of work, life and love.</h8>
             </td>
             <td>
-                <center>Comedy,<br/> Favourite</center>
+                <h7>Comedy, Favourite</h7>
             </td>
-            <td><a href="javascript:thumbsUp('Friends');"><img src="up.jpg" align="left" alt="Thumbs Up" width="50" height="50" hspace="20"></a>
-                <a href="javascript:thumbsDown('Friends');"><img src="down.jpg"  alt="Thumbs Down" width="50" height="50"></a>
+            <td>
+                <a href="javascript:thumbsUp('Friends','TV-Series');"><img src="up.jpg" align="left" alt="Thumbs Up" width="40" height="40" align="left"></a>
+                <a href="javascript:thumbsDown('Friends','TV-Series');"><img src="down.jpg"  alt="Thumbs Down" width="40" height="40" align="right"></a>
+                <br><br><div id="frcountUpresult"></div><br><div id="frcountresult"></div>
             </td>
         </tr>
     </table>
 </center>
 
-
-
-<label><b>Total no. of Likes</b></label>
-<input type="text" name="TextBox" id="TextBox2" value="0" />
-<input type="Button" id='AddButton2' value="+"/>
-<br/>
-<label><b>Total no. of DisLikes</b></label>
-<input type="text" name="TextBox" id="TextBox1" value="0" />
-<input type="Button" id='AddButton1' value="+"/>
-
 <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
 <script>
 
-    function thumbsUp(category) {
-       console.log('Thumbs up..' , category);
-    }
-    function thumbsDown(category) {
-       console.log('Thumbs down..', category);
-    }
-    $(document).ready(function(){
-        $('#AddButton').click( function() {
-            var counter = $('#TextBox').val();
-            counter++ ;
-            $('#TextBox').val(counter);
-        });
-    });
+    function thumbsUp(category, type) {
+       /*console.log('Thumbs Up..', category);
+       alert('Liked, '+category+' '+type+'\n Thanks for you response !!!'); */
 
-    $(document).ready(function(){
-        $('#AddButton1').click( function() {
-            var counter1 = $('#TextBox').val();
-            counter1++ ;
-            $('#TextBox').val(counter);
-        });
-    });
+        switch (category) {
+            case 'Stranger_Things':
+                if (localStorage.stcountUp) {
+                    localStorage.stcountUp = Number(localStorage.stcountUp)+1;
+                } else {
+                    localStorage.stcountUp = 1;
+                }
+                console.log('S.T. Count Up:' , localStorage.stcountUp);
+                document.getElementById("stcountUpresult").innerHTML = "Users Liked :" + localStorage.stcountUp;
+                break;
+            case 'Doctor_Strange':
+                if (localStorage.drcountUp) {
+                    localStorage.drcountUp = Number(localStorage.drcountUp)+1;
+                } else {
+                    localStorage.drcountUp = 1;
+                }
+                console.log('Dr. Strange Count Up:' , localStorage.drcountUp);
+                document.getElementById("drcountUpresult").innerHTML = "Users Liked :" +  localStorage.drcountUp;
+                break;
+            case 'Planet_Earth':
+                if (localStorage.pecountUp) {
+                    localStorage.pecountUp = Number(localStorage.pecountUp)+1;
+                } else {
+                    localStorage.pecountUp = 1;
+                }
+                console.log('Planet Earth Count Up:' , localStorage.pecountUp);
+                document.getElementById("pecountUpresult").innerHTML = "Users Liked :" + localStorage.pecountUp;
+                break;
+            case 'Flash':
+                if (localStorage.fcountUp) {
+                    localStorage.fcountUp = Number(localStorage.fcountUp)+1;
+                } else {
+                    localStorage.fcountUp = 1;
+                }
+                console.log('Flash Count Up:' , localStorage.fcountUp);
+                document.getElementById("fcountUpresult").innerHTML = "Users Liked :" + localStorage.fcountUp;
+                break;
+            case 'Friends':
+                if (localStorage.frcountUp) {
+                    localStorage.frcountUp = Number(localStorage.frcountUp)+1;
+                } else {
+                    localStorage.frcountUp = 1;
+                }
+                console.log('Friends Count Up:' , localStorage.frcountUp);
+                document.getElementById("frcountUpresult").innerHTML = "Users Liked :" + localStorage.frcountUp;
+                break;
+            default:
+		        alert('----- Please vote !!!  -----');
+		        break;
+        }
+    }
+
+    function thumbsDown(category, count) {
+       /*console.log('Thumbs down..', category);*/
+
+        switch (category) {
+            case 'Stranger_Things':
+                if (localStorage.stcount) {
+                    localStorage.stcount = Number(localStorage.stcount)+1;
+                } else {
+                    localStorage.stcount = 1;
+                }
+                console.log('S.T. Count :' , localStorage.stcount);
+                document.getElementById("stcountresult").innerHTML = "Users UnLiked :" + localStorage.stcount;
+                break;
+            case 'Doctor_Strange':
+                if (localStorage.drcount) {
+                    localStorage.drcount = Number(localStorage.drcount)+1;
+                } else {
+                    localStorage.drcount = 1;
+                }
+                console.log('Dr. Strange Count :' , localStorage.drcount);
+                document.getElementById("drcountresult").innerHTML = "Users UnLiked :" + localStorage.drcount;
+                break;
+            case 'Planet_Earth':
+                if (localStorage.pecount) {
+                    localStorage.pecount = Number(localStorage.pecount)+1;
+                } else {
+                    localStorage.pecount = 1;
+                }
+                console.log('Planet Earth Count :' , localStorage.pecount);
+                document.getElementById("pecountresult").innerHTML = "Users UnLiked :" + localStorage.pecount;
+                break;
+            case 'Flash':
+                if (localStorage.fcount) {
+                    localStorage.fcount = Number(localStorage.fcount)+1;
+                } else {
+                    localStorage.fcount = 1;
+                }
+                console.log('Flash Count :' , localStorage.fcount);
+                document.getElementById("fcountresult").innerHTML = "Users UnLiked :" + localStorage.fcount;
+                break;
+            case 'Friends':
+                if (localStorage.frcount) {
+                    localStorage.frcount = Number(localStorage.frcount)+1;
+                } else {
+                    localStorage.frcount = 1;
+                }
+                console.log('Friends Count :' , localStorage.frcount);
+                document.getElementById("frcountresult").innerHTML = "Users UnLiked :" + localStorage.frcount;
+                break;
+            default:
+		        alert('----- Please vote !!!  -----');
+		        break;
+        }
+    }
+
+	function clickCounter(clickcount) {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+1;
+        } else {
+            localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = "Count : " + localStorage.clickcount;
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}
 </script>
 
 </body>

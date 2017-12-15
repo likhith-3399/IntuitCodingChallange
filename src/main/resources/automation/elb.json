@@ -1,0 +1,384 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "COAF IDEAL ELB",
+  "Parameters": {
+    "ApplicationName": {
+      "Description": "Application name.",
+      "Type": "String",
+      "Default": "Voting Arena"
+    },
+    "AppELBSubnets": {
+      "Description": "These are the 2 subnets that will be used for the load balancer and instances.  These should be in separate Availability Zones",
+      "Type": "CommaDelimitedList"
+    },
+    "AppHealthCheckProtocol": {
+      "Description": "Health check protocol.",
+      "Type": "String",
+      "AllowedValues": [
+        "TCP",
+        "HTTP",
+        "HTTPS",
+        "SSL"
+      ],
+      "ConstraintDescription": "Must be a valid ELB health check protocol."
+    },
+    "elbHttpPort": {
+      "Description": "The receiving port that the load balancer will be listening on.",
+      "Type": "String",
+      "Default": "",
+      "ConstraintDescription": "Must be a valid port."
+    },
+    "elbHttpInstancePort": {
+      "Description": "The destination port that the load balancer will send the traffic on.",
+      "Type": "String",
+      "Default": "",
+      "ConstraintDescription": "Must be a valid port."
+    },
+    "elbHttpListnerProtocol": {
+      "Description": "ELB Listener protocol for the App stack.",
+      "Type": "String",
+      "AllowedValues": [
+        "TCP",
+        "HTTP",
+        "HTTPS",
+        "SSL"
+      ],
+      "ConstraintDescription": "Must be a valid ELB listener protocol."
+    },
+    "AppHealthCheckPath": {
+      "Description": "The path the ELB will use to determine the health of its instances.",
+      "Type": "String",
+      "ConstraintDescription": "Path must exist."
+    },
+    "AppHealthCheckPort": {
+      "Description": "The port that the ELB will use to determine the health of its instances.",
+      "Type": "String",
+      "ConstraintDescription": "Must be a valid port."
+    },
+    "AppELBUnhealthyThreshold": {
+      "Description": "Number of consecutive health check failures before declaring an EC2 instance unhealthy.",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "10",
+      "ConstraintDescription": "Must be a number from 2 to 10."
+    },
+    "AppELBHealthyThreshold": {
+      "Description": "Number of consecutive health check successes before declaring an EC2 instance healthy.",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "10",
+      "ConstraintDescription": "Must be a number from 2 to 10."
+    },
+    "AppELBIntervalThreshold": {
+      "Description": "Amount of time between health checks (5 sec - 600 sec).  For development we're using 5.",
+      "Type": "Number",
+      "MinValue": "5",
+      "MaxValue": "600",
+      "ConstraintDescription": "Must be a number from 5 - 600"
+    },
+    "AppELBTimeoutThreshold": {
+      "Description": "Time to wait when receiving a response from the health check (2 sec - 60 sec).",
+      "Type": "Number",
+      "MinValue": "2",
+      "MaxValue": "60",
+      "ConstraintDescription": "Must be a number from 2 to 60."
+    },
+    "AppELBTarget": {
+      "Description": "URL to ping to check if an instance is Healthy",
+      "Type": "String",
+      "Default": "HTTP:8080/voting/ping"
+    },
+    "Environment": {
+      "Description": "Environment to which the elb belongs.",
+      "Type": "String",
+      "Default": "Dev"
+    },
+    "OwnerContact": {
+      "Description": "Contact information of the user launching the stack.",
+      "Type": "String"
+    },
+    "Uptime": {
+      "Description": "Uptime of the ec2 instance.",
+      "Type": "String",
+      "Default": "excluded"
+    },
+    "TargetDNSName": {
+      "Description": "TargetDNSName",
+      "Type": "String"
+    },
+    "Index": {
+      "Description": "Index",
+      "Type": "String",
+      "Default": "Blue"
+    },
+    "Weight": {
+      "Description": "Weight",
+      "Type": "String",
+      "Default": "0"
+    },
+    "HostedZoneName": {
+      "Description": "DNS to be used for hosting(could be different for internal and external applications)",
+      "Type": "String",
+      "Default": "aws-coaf-dqa.cb4good.com."
+    }
+  },
+  "Conditions": {
+    "HTTPHealthCheck": {
+      "Fn::Or": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "AppHealthCheckProtocol"
+            },
+            "HTTP"
+          ]
+        },
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "AppHealthCheckProtocol"
+            },
+            "HTTPS"
+          ]
+        }
+      ]
+    }
+  },
+  "Resources": {
+    "AppELB": {
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties": {
+        "Scheme": "internal",
+        "CrossZone": "true",
+        "Subnets": {
+          "Ref": "AppELBSubnets"
+        },
+        "Listeners": [
+          {
+            "LoadBalancerPort": {
+              "Ref": "elbHttpPort"
+            },
+            "InstancePort": {
+              "Ref": "elbHttpInstancePort"
+            },
+            "Protocol": {
+              "Ref": "elbHttpListnerProtocol"
+            },
+            "InstanceProtocol": {
+              "Ref": "elbHttpListnerProtocol"
+            }
+          }
+        ],
+        "HealthCheck": {
+          "Target": {
+            "Ref": "AppELBTarget"
+          },
+          "HealthyThreshold": {
+            "Ref": "AppELBHealthyThreshold"
+          },
+          "UnhealthyThreshold": {
+            "Ref": "AppELBUnhealthyThreshold"
+          },
+          "Interval": {
+            "Ref": "AppELBIntervalThreshold"
+          },
+          "Timeout": {
+            "Ref": "AppELBTimeoutThreshold"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Ref": "ApplicationName"
+                  },
+                  " App ELB"
+                ]
+              ]
+            }
+          },
+          {
+            "Key": "OwnerContact",
+            "Value": {
+              "Ref": "OwnerContact"
+            }
+          },
+          {
+            "Key": "ApplicationName",
+            "Value": {
+              "Ref": "ApplicationName"
+            }
+          },
+          {
+            "Key": "Uptime",
+            "Value": {
+              "Ref": "Uptime"
+            }
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
+    },
+    "idealDNS": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "DependsOn": "AppELB",
+      "Properties": {
+        "HostedZoneName": {
+          "Ref": "HostedZoneName"
+        },
+        "Comment": "Zone apex alias targeted to Voting Arena ELB LoadBalancers.",
+        "RecordSets": [
+          {
+            "Name": {
+              "Fn::Join": [
+                ".",
+                [
+                  {
+                    "Ref": "TargetDNSName"
+                  },
+                  {
+                    "Ref": "HostedZoneName"
+                  }
+                ]
+              ]
+            },
+            "Type": "A",
+            "SetIdentifier": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "TargetDNSName"
+                  },
+                  {
+                    "Ref": "Index"
+                  }
+                ]
+              ]
+            },
+            "Weight": {
+              "Ref": "Weight"
+            },
+            "AliasTarget": {
+              "HostedZoneId": {
+                "Fn::GetAtt": [
+                  "AppELB",
+                  "CanonicalHostedZoneNameID"
+                ]
+              },
+              "DNSName": {
+                "Fn::GetAtt": [
+                  "AppELB",
+                  "DNSName"
+                ]
+              },
+              "EvaluateTargetHealth": true
+            }
+          }
+        ]
+      }
+    },
+    "UnhealthyInstancesAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Load balancer alarm for unhealthy instances",
+        "AlarmActions": [
+          {
+            "Ref": "SNSTopicARN"
+          }
+        ],
+        "MetricName": "UnHealthyHostCount",
+        "Namespace": "AWS/ELB",
+        "Statistic": "Average",
+        "Period": "60",
+        "EvaluationPeriods": "3",
+        "Threshold": "0",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "Dimensions": [
+          {
+            "Name": "LoadBalancerName",
+            "Value": {
+              "Ref": "AppELB"
+            }
+          }
+        ]
+      }
+    },
+    "Outputs": {
+      "AppELBURL": {
+        "Value": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Fn::GetAtt": [
+                  "AppELB",
+                  "DNSName"
+                ]
+              },
+              ":",
+              {
+                "Ref": "elbHttpPort"
+              }
+            ]
+          ]
+        }
+      },
+      "AppELBName": {
+        "Value": {
+          "Ref": "AppELB"
+        }
+      },
+      "OwnerContact": {
+        "Value": {
+          "Ref": "OwnerContact"
+        }
+      },
+      "ApplicationName": {
+        "Value": {
+          "Ref": "ApplicationName"
+        }
+      },
+      "ValueStream": {
+        "Value": {
+          "Ref": "ValueStream"
+        }
+      },
+      "Environment": {
+        "Value": {
+          "Ref": "Environment"
+        }
+      },
+      "Uptime": {
+        "Value": {
+          "Ref": "Uptime"
+        }
+      },
+      "TargetHostName": {
+        "Description": "Target HostName",
+        "Value": {
+          "Fn::Join": [
+            ".",
+            [
+              {
+                "Ref": "TargetDNSName"
+              },
+              {
+                "Ref": "HostedZoneName"
+              }
+            ]
+          ]
+        }
+      }
+    }
+  }
+}
