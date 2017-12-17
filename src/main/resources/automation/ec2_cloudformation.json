@@ -6,12 +6,12 @@
     "ImageId": {
       "Description": "Provides the unique ID of the Amazon Machine Image (AMI)",
       "Type": "AWS::EC2::Image::Id",
-      "Default": "ami-301f824a"
+      "Default": "ami-c998b6b2"
     },
     "InstanceType": {
       "Description": "The type of the ec2 instance you are creating",
       "Type": "String",
-      "Default": "c4.xlarge"
+      "Default": "t2.micro"
     },
     "SubnetId": {
       "Description": "ID of the subnet you want to launch the instance into",
@@ -75,7 +75,6 @@
       "Properties" : {
         "ImageId": { "Ref": "ImageId" },
         "InstanceType": { "Ref": "InstanceType" },
-        "SecurityGroupIds": { "Ref": "SecurityGroupIds" },
         "SubnetId": { "Ref": "SubnetId" },
         "Tags": [
           {
@@ -99,6 +98,7 @@
             "Value": { "Ref": "Environment" }
           }
         ],
+        "KeyName": "Acc_846095599110",
         "UserData": {
           "Fn::Base64": {
             "Fn::Join": [
@@ -112,32 +112,5 @@
         }
       }
     }
-    /*"idealDNS" : {
-      "Type" : "AWS::Route53::RecordSetGroup",
-      "DependsOn": "TestNode",
-      "Properties" : {
-        "HostedZoneName" : { "Ref": "HostedZoneName" },
-        "Comment" : "Zone apex alias targeted to Ideal ELB LoadBalancers.",
-        "RecordSets" : [
-          {
-            "Name" : { "Fn::Join": [ ".", [
-              { "Ref": "TargetDNSName" },
-              { "Ref": "HostedZoneName" }
-            ] ] },
-            "Type" : "A",
-            "TTL" : "300",
-            "SetIdentifier" : { "Fn::Join": [ "-", [
-              { "Ref": "TargetDNSName" },
-              { "Ref": "Index" }
-            ] ] },
-            "Weight": { "Ref": "Weight" },
-            "ResourceRecords" : [
-              { "Fn::GetAtt" : [ "TestNode", "PrivateIp" ] }
-            ]
-          }
-        ]
-      }
-    }*/
   }
-
 }
