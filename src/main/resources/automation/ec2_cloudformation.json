@@ -33,11 +33,6 @@
       "Type": "String",
       "Default": "likhith.matta@capitalone.com"
     },
-    "Uptime": {
-      "Description": "Uptime of the instance",
-      "Type": "String",
-      "Default": "8x5"
-    },
     "Environment": {
       "Description": "Environment to which this instance belongs.",
       "Type": "String",
@@ -88,10 +83,6 @@
           {
             "Key": "OwnerContact",
             "Value": { "Ref": "OwnerContact" }
-          },
-          {
-            "Key": "Uptime",
-            "Value": { "Ref": "Uptime" }
           },
           {
             "Key": "Environment",

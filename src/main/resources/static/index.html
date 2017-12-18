@@ -113,14 +113,14 @@
                 <h3>Comedy</h3>
             </td>
             <td>
-                <a href="javascript:thumbsUp('Friends','TV-Series');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="frcountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Friends','TV-Series');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="frcountresult" align="center"></div></h3>
+                <a href="javascript:thumbsUp('Friends','TV-Series', 0);"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="frcountUpresult" align="center"></div><br></h3>
+                <a href="javascript:thumbsDown('Friends','TV-Series', 1);"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="frcountresult" align="center"></div></h3>
             </td>
         </tr>
     </table>
 </center>
 <br><br><br><br><br>
-<h3><a href="https://github.com/likhith-3399/IntuitCodingChallange">Visit my GITHUB page here !</a></h3>
+<h3><a href="https://github.com/likhith-3399/IntuitCodingChallange.git">Visit my GITHUB page here !</a></h3>
 <br><br><br><br><br>
 <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
 <script>
@@ -181,54 +181,29 @@
         }
     }
 
-    function thumbsDown(category, count) {
+    function counter(category, type, myFlag) {
        /*console.log('Thumbs down..', category);*/
 
         switch (category) {
             case 'Stranger_Things':
-                if (localStorage.stcount) {
-                    localStorage.stcount = Number(localStorage.stcount)+1;
+                if ( myFlag == 0) {
+                    document.getElementById("stcountresult").innerHTML = updateCounter(category, type, localStorage.stcount);
+
                 } else {
-                    localStorage.stcount = 1;
+                    document.getElementById("stcountresult").innerHTML = updateCounter(category, type, localStorage.stcount);
                 }
-                console.log('S.T. Count :' , localStorage.stcount);
-                document.getElementById("stcountresult").innerHTML = localStorage.stcount;
                 break;
             case 'Doctor_Strange':
-                if (localStorage.drcount) {
-                    localStorage.drcount = Number(localStorage.drcount)+1;
-                } else {
-                    localStorage.drcount = 1;
-                }
-                console.log('Dr. Strange Count :' , localStorage.drcount);
-                document.getElementById("drcountresult").innerHTML = localStorage.drcount;
+                document.getElementById("drcountresult").innerHTML = updateCounter(category, type, localStorage.drcount);
                 break;
             case 'Planet_Earth':
-                if (localStorage.pecount) {
-                    localStorage.pecount = Number(localStorage.pecount)+1;
-                } else {
-                    localStorage.pecount = 1;
-                }
-                console.log('Planet Earth Count :' , localStorage.pecount);
-                document.getElementById("pecountresult").innerHTML = localStorage.pecount;
+                document.getElementById("pecountresult").innerHTML = updateCounter(category, type, localStorage.pecount);
                 break;
             case 'Flash':
-                if (localStorage.fcount) {
-                    localStorage.fcount = Number(localStorage.fcount)+1;
-                } else {
-                    localStorage.fcount = 1;
-                }
-                console.log('Flash Count :' , localStorage.fcount);
-                document.getElementById("fcountresult").innerHTML = localStorage.fcount;
+                document.getElementById("fcountresult").innerHTML = updateCounter(category, type, localStorage.frcount);
                 break;
             case 'Friends':
-                if (localStorage.frcount) {
-                    localStorage.frcount = Number(localStorage.frcount)+1;
-                } else {
-                    localStorage.frcount = 1;
-                }
-                console.log('Friends Count :' , localStorage.frcount);
-                document.getElementById("frcountresult").innerHTML = localStorage.frcount;
+                document.getElementById("frcountresult").innerHTML = updateCounter(category, type, localStorage.frcount);
                 break;
             default:
 		        alert('----- Please vote !!!  -----');
@@ -236,16 +211,19 @@
         }
     }
 
-	function clickCounter(clickcount) {
+
+	function updateCounter(category, type, clickcount) {
     if(typeof(Storage) !== "undefined") {
         if (localStorage.clickcount) {
             localStorage.clickcount = Number(localStorage.clickcount)+1;
         } else {
             localStorage.clickcount = 1;
         }
-        document.getElementById("result").innerHTML = "Count : " + localStorage.clickcount;
+        console.log(type, ' - ',category,' Count :' , localStorage.clickcount);
+        return localStorage.clickcount;
+
     } else {
-        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+        return "ERROR";
     }
 }
 </script>

@@ -15,7 +15,6 @@ import java.util.Map;
  * Created by NUS889 on 12/16/2017.
  */
 @Service
-@Component
 public class CacheService {
 
     private static final Logger logger = LogManager.getLogger(CacheService.class);

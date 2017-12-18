@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "COAF IDEAL ELB",
+  "Description": "ELB",
   "Parameters": {
     "ApplicationName": {
       "Description": "Application name.",
@@ -116,8 +116,13 @@
       "Type": "String",
       "Default": "0"
     },
+    "SNSTopicARN": {
+      "Description": "SNS Topic ARN",
+      "Type": "String",
+      "Default": "arn:aws:sns:us-east-1:846095599110:MY_TOPIC"
+    },
     "HostedZoneName": {
-      "Description": "DNS to be used for hosting(could be different for internal and external applications)",
+      "Description": "DNS to be used for hosting this app",
       "Type": "String",
       "Default": "aws-coaf-dqa.cb4good.com."
     }
@@ -348,19 +353,9 @@
           "Ref": "ApplicationName"
         }
       },
-      "ValueStream": {
-        "Value": {
-          "Ref": "ValueStream"
-        }
-      },
       "Environment": {
         "Value": {
           "Ref": "Environment"
-        }
-      },
-      "Uptime": {
-        "Value": {
-          "Ref": "Uptime"
         }
       },
       "TargetHostName": {
