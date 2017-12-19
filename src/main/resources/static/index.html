@@ -43,8 +43,8 @@
             <td>
                 <h3> Popular,<br> Horror</h3>
             </td>
-            <td><a href="javascript:thumbsUp('Stranger_Things','Movie');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="stcountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Stranger_Things','Movie');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="stcountresult" align="center"></div></h3>
+            <td><a href="javascript:counter('Stranger_Things','Movie', 'UP',  'stThumbsUpCount');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="stThumbsUpCount" align="center"></div><br></h3>
+                <a href="javascript:counter('Stranger_Things','Movie', 'DOWN', 'stThumbsDownCount');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="stThumbsDownCount" align="center"></div></h3>
             </td>
         </tr>
 
@@ -59,8 +59,8 @@
                 <h3>Action</h3>
             </td>
             <td>
-                <a href="javascript:thumbsUp('Doctor_Strange','Movie');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="drcountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Doctor_Strange','Movie');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="drcountresult" align="center"></div></h3>
+                <a href="javascript:counter('Doctor_Strange','Movie', 'UP',  'drThumbsUpCount');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="drThumbsUpCount" align="center"></div><br></h3>
+                <a href="javascript:counter('Doctor_Strange','Movie', 'DOWN', 'drThumbsDownCount');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="drThumbsDownCount" align="center"></div></h3>
             </td>
         </tr>
 
@@ -72,8 +72,8 @@
             </td>
             <td><h3>Documentary</h3></td>
             <td>
-                <a href="javascript:thumbsUp('Planet_Earth','Documentary');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="pecountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Planet_Earth','Documentary');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="pecountresult" align="center"></div></h3>
+                <a href="javascript:counter('Planet_Earth','Documentary', 'UP',  'planetThumbsUpCount');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="planetThumbsUpCount" align="center"></div><br></h3>
+                <a href="javascript:counter('Planet_Earth','Documentary', 'DOWN', 'planetThumbsDownCount');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="planetThumbsDownCount" align="center"></div></h3>
             </td>
         </tr>
 
@@ -96,8 +96,8 @@
             <td>
                 <h3>Popular,<br> Action</h3>
             </td>
-            <td><a href="javascript:thumbsUp('Flash','TV-Series');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="fcountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Flash','TV-Series');"><img src="down.jpg"  alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="fcountresult" align="center"></div></h3>
+            <td><a href="javascript:counter('Flash','TV-Series', 'UP',  'flashThumbsUpCount');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="flashThumbsUpCount" align="center"></div><br></h3>
+                <a href="javascript:counter('Flash','TV-Series', 'DOWN', 'flashThumbsDownCount');"><img src="down.jpg"  alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="flashThumbsDownCount" align="center"></div></h3>
             </td>
         </tr>
         <tr>
@@ -113,119 +113,69 @@
                 <h3>Comedy</h3>
             </td>
             <td>
-                <a href="javascript:thumbsUp('Friends','TV-Series', 0);"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="frcountUpresult" align="center"></div><br></h3>
-                <a href="javascript:thumbsDown('Friends','TV-Series', 1);"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="frcountresult" align="center"></div></h3>
+                <a href="javascript:counter('Friends','TV-Series', 'UP', 'friendsThumbsUpCount');"><img src="up.jpg" alt="Thumbs Up" width="40" height="40" align="left"></a><h3><div id="friendsThumbsUpCount" align="center"></div><br></h3>
+                <a href="javascript:counter('Friends','TV-Series', 'DOWN', 'friendsThumbsDownCount');"><img src="down.jpg" alt="Thumbs Down" width="40" height="40" align="left"></a><h3><div id="friendsThumbsDownCount" align="center"></div></h3>
             </td>
         </tr>
     </table>
 </center>
 <br><br><br><br><br>
+<h3><a href="javascript:resetCounter();">Reset All Values</a></h3>
+<br><br><br><br><br>
 <h3><a href="https://github.com/likhith-3399/IntuitCodingChallange.git">Visit my GITHUB page here !</a></h3>
 <br><br><br><br><br>
-<script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+
+
+<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
 <script>
 
-    function thumbsUp(category, type) {
-       /*console.log('Thumbs Up..', category);
-       alert('Liked, '+category+' '+type+'\n Thanks for you response !!!'); */
+    function counter(name, category, upDownCounter, divId) {
+       console.log('Clicked On - ',name ,':', category, ':', upDownCounter);
 
-        switch (category) {
-            case 'Stranger_Things':
-                if (localStorage.stcountUp) {
-                    localStorage.stcountUp = Number(localStorage.stcountUp)+1;
-                } else {
-                    localStorage.stcountUp = 1;
-                }
-                console.log('S.T. Count Up:' , localStorage.stcountUp);
-                document.getElementById("stcountUpresult").innerHTML = localStorage.stcountUp;
-                break;
-            case 'Doctor_Strange':
-                if (localStorage.drcountUp) {
-                    localStorage.drcountUp = Number(localStorage.drcountUp)+1;
-                } else {
-                    localStorage.drcountUp = 1;
-                }
-                console.log('Dr. Strange Count Up:' , localStorage.drcountUp);
-                document.getElementById("drcountUpresult").innerHTML = localStorage.drcountUp;
-                break;
-            case 'Planet_Earth':
-                if (localStorage.pecountUp) {
-                    localStorage.pecountUp = Number(localStorage.pecountUp)+1;
-                } else {
-                    localStorage.pecountUp = 1;
-                }
-                console.log('Planet Earth Count Up:' , localStorage.pecountUp);
-                document.getElementById("pecountUpresult").innerHTML = localStorage.pecountUp;
-                break;
-            case 'Flash':
-                if (localStorage.fcountUp) {
-                    localStorage.fcountUp = Number(localStorage.fcountUp)+1;
-                } else {
-                    localStorage.fcountUp = 1;
-                }
-                console.log('Flash Count Up:' , localStorage.fcountUp);
-                document.getElementById("fcountUpresult").innerHTML = localStorage.fcountUp;
-                break;
-            case 'Friends':
-                if (localStorage.frcountUp) {
-                    localStorage.frcountUp = Number(localStorage.frcountUp)+1;
-                } else {
-                    localStorage.frcountUp = 1;
-                }
-                console.log('Friends Count Up:' , localStorage.frcountUp);
-                document.getElementById("frcountUpresult").innerHTML = localStorage.frcountUp;
-                break;
-            default:
-		        alert('----- Please vote !!!  -----');
-		        break;
-        }
+        $.ajax({
+            url: '/voting/storeMovieDetails',
+            type: 'PUT',
+            dataType: 'json',
+            contentType:"application/json; charset=utf-8",
+            data:  JSON.stringify({
+                "movieName": name,
+                "type": upDownCounter
+            }),
+            success: function(data) {
+                document.getElementById(divId).innerHTML = data;
+                console.log('Value : ', data);
+            },
+            failure: function(data) {
+                console.log('ERROR : ', data);
+            }
+        });
     }
 
-    function counter(category, type, myFlag) {
-       /*console.log('Thumbs down..', category);*/
-
-        switch (category) {
-            case 'Stranger_Things':
-                if ( myFlag == 0) {
-                    document.getElementById("stcountresult").innerHTML = updateCounter(category, type, localStorage.stcount);
-
-                } else {
-                    document.getElementById("stcountresult").innerHTML = updateCounter(category, type, localStorage.stcount);
-                }
-                break;
-            case 'Doctor_Strange':
-                document.getElementById("drcountresult").innerHTML = updateCounter(category, type, localStorage.drcount);
-                break;
-            case 'Planet_Earth':
-                document.getElementById("pecountresult").innerHTML = updateCounter(category, type, localStorage.pecount);
-                break;
-            case 'Flash':
-                document.getElementById("fcountresult").innerHTML = updateCounter(category, type, localStorage.frcount);
-                break;
-            case 'Friends':
-                document.getElementById("frcountresult").innerHTML = updateCounter(category, type, localStorage.frcount);
-                break;
-            default:
-		        alert('----- Please vote !!!  -----');
-		        break;
-        }
+    function resetCounter(){
+        console.log('Resetting all countered Values');
+        $.ajax({
+            url: '/voting/resetValues',
+            type: 'DELETE',
+            success: function(result) {
+                reset();
+            },
+            failure: function(result) {
+                console.log('ERROR : ', result);
+                alert('Error while resetting the counter values !!!');
+            }
+        });
     }
 
+    function reset() {
+        var upDivIds = ['stThumbsUpCount', 'stThumbsDownCount', 'planetThumbsUpCount', 'planetThumbsDownCount',
+        'drThumbsDownCount', 'drThumbsUpCount','flashThumbsUpCount', 'flashThumbsDownCount', 'friendsThumbsUpCount', 'friendsThumbsDownCount'];
 
-	function updateCounter(category, type, clickcount) {
-    if(typeof(Storage) !== "undefined") {
-        if (localStorage.clickcount) {
-            localStorage.clickcount = Number(localStorage.clickcount)+1;
-        } else {
-            localStorage.clickcount = 1;
+        for (var i = 0; i < upDivIds.length; i++) {
+            document.getElementById(upDivIds[i]).innerHTML = '';
         }
-        console.log(type, ' - ',category,' Count :' , localStorage.clickcount);
-        return localStorage.clickcount;
-
-    } else {
-        return "ERROR";
+        alert('All Values has been Reset !!!');
     }
-}
+
 </script>
 
 </body>
