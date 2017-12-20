@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <property name="logdir" value="C:/tmp" />
+    <property name="logdir" value="../Logs" />
     <property name="pattern" value="%d %-4relative [%thread] %-5level %logger{35} - %msg%n" />
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -38,6 +38,5 @@
     <root level="info">
         <appender-ref ref="file" />
     </root>
-
 
 </configuration>
