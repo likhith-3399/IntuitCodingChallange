@@ -36,14 +36,14 @@ public class HomeController {
     public
     @ResponseBody
     ResponseEntity<String> ping() {
-        logger.info("Class: " + logger.getClass().getName() + ", Method: ping(), Stage: Started");
+        logger.info("Method: ping(), Stage: Started");
 
         StringBuilder responseString = new StringBuilder();
         responseString.append("Voting Service is up !!! ");
         responseString.append("... Running Version : ");
         responseString.append(appVersion);
 
-        logger.info("Class: " + logger.getClass().getName() + ", Method: ping(), Stage: Ended");
+        logger.info("Method: ping(), Stage: Ended");
         return new ResponseEntity<String>(responseString.toString(), HttpStatus.OK);
     }
 
