@@ -12,7 +12,7 @@
 - Java 8
 - Maven
 - SpringBoot
-- Restful
+- Restful Webservices
 - Spring Cache
 - JQuery
 - HTML
