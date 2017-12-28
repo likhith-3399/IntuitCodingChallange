@@ -35,3 +35,5 @@
 2. Run the application, by adding the main class to Run Configuration.
 3. If you want to run the application from command line, run the below command.
 	mvn spring-boot:run
+4. GoTo your browser and hit http://http://localhost:8090/voting/ for application or,
+5. GoTo http://localhost:8090/voting/ping for ping page.
