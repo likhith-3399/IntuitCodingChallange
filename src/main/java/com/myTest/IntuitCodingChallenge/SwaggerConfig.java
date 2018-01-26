@@ -25,8 +25,8 @@ public class SwaggerConfig {
 				.select()
 				.apis(RequestHandlerSelectors
 				.basePackage("com.myTest.IntuitCodingChallenge"))
-				.paths(PathSelectors.any())
-//				.paths(PathSelectors.regex("/votingservice.*"))
+//				.paths(PathSelectors.any())
+				.paths(PathSelectors.regex("/.*"))
 				.build();
 
 	}
