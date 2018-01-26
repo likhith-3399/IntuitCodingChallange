@@ -26,7 +26,7 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors
 				.basePackage("com.myTest.IntuitCodingChallenge"))
 				.paths(PathSelectors.any())
-//				.paths(regex("/product.*"))
+//				.paths(PathSelectors.regex("/votingservice.*"))
 				.build();
 
 	}
