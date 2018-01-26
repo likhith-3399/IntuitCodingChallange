@@ -1,17 +1,27 @@
 package com.myTest.IntuitCodingChallenge;
 
 
-import com.myTest.common.MovieDetails;
-import com.myTest.service.CacheService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.myTest.common.MovieDetails;
+import com.myTest.service.CacheService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /*
 * Controller class where all the Rest api are exposed
@@ -19,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 * Created by NUS889 on 12/16/2017.
 * */
 @Controller
+@Api(value="Voting Arena", description="Operations pertaining to movie voting !!!")
 public class HomeController {
 
     @Value("${app.version}")
@@ -32,10 +43,10 @@ public class HomeController {
     /*
     *  Generic Health check method for Application
     * */
+    @ApiOperation(value = "Application Health Check")
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    public
     @ResponseBody
-    ResponseEntity<String> ping() {
+    public ResponseEntity<String> ping() {
         logger.info("Method: ping(), Stage: Started");
 
         StringBuilder responseString = new StringBuilder();
@@ -50,7 +61,19 @@ public class HomeController {
     /*
     * Rest API to store the counter values
     * */
-    @RequestMapping(value = "/storeMovieDetails", method = RequestMethod.PUT)
+    @ApiOperation( 
+    	    value = "Store Movie Details", 
+    	    notes = "Store Movie Review Details (likes/ dislikes) ", 	
+    	    response = ResponseEntity.class 
+    	)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully Stored Movie details"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    @RequestMapping(value = "/storeMovieDetails", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> storeMovieDetails(@RequestBody MovieDetails movieDetails) {
         logger.info("Method: updateMovieDetails(), Stage: Started");
         Assert.notNull(movieDetails, "No Movie Details !!!");
@@ -65,10 +88,10 @@ public class HomeController {
         return new ResponseEntity<Integer>(cacheService.getMovieDetails(key), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Clear Saved Movie Details")
     @RequestMapping(value = "/resetValues", method = RequestMethod.DELETE)
-    public
     @ResponseBody
-    String resetValues() {
+    public String resetValues() {
         logger.info("Method: resetValues(), Stage: Started");
         cacheService.resetMovieDetails();
         logger.info("Method: resetValues(), Stage: Ended");
