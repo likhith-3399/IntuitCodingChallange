@@ -20,6 +20,14 @@
 - JQuery
 - HTML
 - Apache Logging
+- Swagger 2.0
+
+## Swagger 2.0 Documentation
+*	Swagger Doc
+>	URL: http://localhost:8090/voting/v2/api-docs
+
+*	Swagger UI - Doc
+>	URL: http://localhost:8090/voting/swagger-ui.html
 
 
 ## Steps to Build the Application
